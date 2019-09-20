@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Form</string>
+    <string name="submit">Submit</string>
+    <string name="hint_email">Email</string>
+    <string name="error_email_required">Email is required</string>
+    <string name="error_email_invalid">Email is invalid</string>
+    <string name="hint_name">Name</string>
+    <string name="error_name_required">Name is required</string>
+    <string name="hint_password">Password</string>
+    <string name="error_password_required">Password is required</string>
+</resources>
