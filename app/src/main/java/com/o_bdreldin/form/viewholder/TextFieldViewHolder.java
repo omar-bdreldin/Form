@@ -43,18 +43,18 @@ public class TextFieldViewHolder extends BasicViewHolder<String> implements Text
                     setTextAndWithoutTriggeringOnTextChanged(field.getValue());
                 break;
             case VALIDATED:
-                setTextAndWithoutTriggeringOnTextChanged(
-                        field.getValue() != null ? field.getValue() : ""
-                );
                 switch (field.getValid()) {
                     case IS_VALID:
                         inputLayout.setError(null);
+                        setTextAndWithoutTriggeringOnTextChanged(field.getValue());
                         break;
                     case IS_NULL:
                         inputLayout.setError(context.getString(field.errorRequiredStringRes()));
+                        setTextAndWithoutTriggeringOnTextChanged("");
                         break;
                     case IS_INVALID:
                         inputLayout.setError(context.getString(field.errorInvalidStringRes()));
+                        setTextAndWithoutTriggeringOnTextChanged(field.getValue());
                         break;
                 }
                 break;
