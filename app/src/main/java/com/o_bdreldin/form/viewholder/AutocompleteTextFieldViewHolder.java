@@ -44,17 +44,18 @@ public class AutocompleteTextFieldViewHolder extends BasicViewHolder<Object> {
                     autoCompleteTextView.setText(field.getValue().toString());
                 break;
             case VALIDATED:
-                if (field.getValue() != null)
-                    autoCompleteTextView.setText(field.getValue().toString());
                 switch (field.getValid()) {
                     case IS_VALID:
                         inputLayout.setError(null);
+                        autoCompleteTextView.setText(field.getValue().toString());
                         break;
                     case IS_NULL:
                         inputLayout.setError(context.getString(field.errorRequiredStringRes()));
+                        autoCompleteTextView.setText("");
                         break;
                     case IS_INVALID:
                         inputLayout.setError(context.getString(field.errorInvalidStringRes()));
+                        autoCompleteTextView.setText("");
                         break;
                 }
         }
@@ -71,6 +72,23 @@ public class AutocompleteTextFieldViewHolder extends BasicViewHolder<Object> {
         );
         autoCompleteTextView.setOnItemClickListener((adapterView, view, position, id) -> {
             field.setValue(field.autocompleteReferenceList().get(position));
+        });
+        autoCompleteTextView.setValidator(new AutoCompleteTextView.Validator() {
+            @Override
+            public boolean isValid(CharSequence charSequence) {
+                if (field.autocompleteReferenceList() != null) {
+                    for (Object o : field.autocompleteReferenceList()) {
+                        if (o.toString().contentEquals(charSequence))
+                            return true;
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public CharSequence fixText(CharSequence charSequence) {
+                return "";
+            }
         });
     }
 }
