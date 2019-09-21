@@ -12,11 +12,11 @@ import com.o_bdreldin.form.field.Field;
 /**
  * Created by Omar Bdreldin on 9/17/2019
  */
-public class AutocompleteTextFieldViewHolder extends BasicViewHolder<Object> {
+public class AutoCompleteTextFieldViewHolder extends BasicViewHolder<Object> {
 
     protected AutoCompleteTextView autoCompleteTextView;
 
-    public AutocompleteTextFieldViewHolder(@NonNull View view) {
+    public AutoCompleteTextFieldViewHolder(@NonNull View view) {
         super(view);
         autoCompleteTextView = (AutoCompleteTextView) inputField;
     }
@@ -87,7 +87,7 @@ public class AutocompleteTextFieldViewHolder extends BasicViewHolder<Object> {
 
             @Override
             public CharSequence fixText(CharSequence charSequence) {
-                return "";
+                return field.getValue() != null ? field.getValue().toString() : "";
             }
         });
     }

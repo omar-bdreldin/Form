@@ -4,6 +4,7 @@ import android.text.InputType;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.o_bdreldin.form.ViewType;
 
 import java.util.List;
@@ -11,17 +12,17 @@ import java.util.List;
 /**
  * Created by Omar Bdreldin on 9/17/2019
  */
-public class AutocompleteTextField<VAL> extends Field_Impl_I<VAL> {
+public class AutoCompleteTextField<VAL> extends Field_Impl_I<VAL> {
 
     private final List<VAL> list;
 
-    public AutocompleteTextField(int hintStringRes, int errorRequiredStringRes
+    public AutoCompleteTextField(int hintStringRes, int errorRequiredStringRes
             , @NonNull List<VAL> list) {
         super(hintStringRes, errorRequiredStringRes, 0);
         this.list = list;
     }
 
-    public AutocompleteTextField(int hintStringRes, int errorRequiredStringRes
+    public AutoCompleteTextField(int hintStringRes, int errorRequiredStringRes
             , int errorInvalidStringRes, @NonNull List<VAL> list) {
         super(hintStringRes, errorRequiredStringRes, errorInvalidStringRes);
         this.list = list;
@@ -44,6 +45,6 @@ public class AutocompleteTextField<VAL> extends Field_Impl_I<VAL> {
 
     @Override
     public int endIconMode() {
-        return 0;
+        return TextInputLayout.END_ICON_DROPDOWN_MENU;
     }
 }

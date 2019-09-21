@@ -2,6 +2,7 @@ package com.o_bdreldin.form.field;
 
 import android.text.InputType;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.o_bdreldin.form.R;
 
 /**
@@ -43,11 +44,11 @@ public class PasswordTextField extends PlainTextField {
 
     @Override
     public int inputType() {
-        return InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        return InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
     }
 
     @Override
     public int endIconMode() {
-        return showPasswordToggle ? 0 : super.endIconMode(); // TODO
+        return showPasswordToggle ? TextInputLayout.END_ICON_PASSWORD_TOGGLE : super.endIconMode();
     }
 }

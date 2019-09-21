@@ -32,6 +32,7 @@ public abstract class BasicViewHolder<VAL> extends RecyclerView.ViewHolder {
     public void bind(Field<VAL> field) {
         inputField.setInputType(field.inputType());
         inputLayout.setHint(context.getString(field.hintStringRes()));
+        inputLayout.setEndIconMode(field.endIconMode());
         _bind(field);
         _setListeners(field);
     }

@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.o_bdreldin.form.R;
 import com.o_bdreldin.form.ViewType;
 import com.o_bdreldin.form.field.Field;
-import com.o_bdreldin.form.viewholder.AutocompleteTextFieldViewHolder;
+import com.o_bdreldin.form.viewholder.AutoCompleteTextFieldViewHolder;
 import com.o_bdreldin.form.viewholder.BasicViewHolder;
+import com.o_bdreldin.form.viewholder.MultipleAutoCompleteTextFieldViewHolder;
 import com.o_bdreldin.form.viewholder.TextFieldViewHolder;
 
 import java.util.List;
@@ -44,7 +45,10 @@ public class _Adapter extends RecyclerView.Adapter<BasicViewHolder<?>> {
                 return new TextFieldViewHolder(view);
             case ViewType.VIEW_TYPE_AUTO_COMPLETE:
                 view = layoutInflater.inflate(R.layout.view_holder_autocomplete, parent, false);
-                return new AutocompleteTextFieldViewHolder(view);
+                return new AutoCompleteTextFieldViewHolder(view);
+            case ViewType.VIEW_TYPE_MULTIPLE_AUTO_COMPLETE:
+                view = layoutInflater.inflate(R.layout.view_holder_multiple_autocomplete, parent, false);
+                return new MultipleAutoCompleteTextFieldViewHolder(view);
             default:
                 return null;
         }

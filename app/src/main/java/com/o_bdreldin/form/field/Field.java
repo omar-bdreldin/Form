@@ -2,10 +2,15 @@ package com.o_bdreldin.form.field;
 
 import android.text.InputType;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.List;
+
+import static com.google.android.material.textfield.TextInputLayout.END_ICON_NONE;
 
 /**
  * Created by Omar Bdreldin on 8/25/2019
@@ -38,15 +43,15 @@ public interface Field<T> {
         return InputType.TYPE_CLASS_TEXT;
     }
 
+    @TextInputLayout.EndIconMode
     default int endIconMode() {
-        return 0;
+        return END_ICON_NONE;
     }
 
+    @DrawableRes
     default int endIcon() {
         return 0;
     }
-
-    void setEndIcon(int endIcon);
 
     @NonNull
     Status getStatus();

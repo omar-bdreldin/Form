@@ -40,8 +40,7 @@ public abstract class Field_Impl_I<T> implements Field<T> {
         return endIcon;
     }
 
-    @Override
-    public void setEndIcon(int endIcon) {
+    public void setEndIcon(@DrawableRes int endIcon) {
         this.endIcon = endIcon;
     }
 
