@@ -5,6 +5,8 @@ import androidx.annotation.StringRes;
 
 import com.o_bdreldin.form.ViewType;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by Omar Bdreldin on 9/2/2019
  */

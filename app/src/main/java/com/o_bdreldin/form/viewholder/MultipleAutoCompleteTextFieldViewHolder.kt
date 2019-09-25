@@ -27,11 +27,6 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
     override fun inputLayoutId(): Int = R.id.text_input_layout
 
     override fun _bind(field: Field<MutableList<Any>>) {
-        multiAutoCompleteTextView.setTokenizer(MultiAutoCompleteTextView.CommaTokenizer())
-        chipGroup.removeAllViews()
-        chipGenerator.generateChipsForAny(field, field.value).forEach {
-            chipGroup.addView(it)
-        }
         multiAutoCompleteTextView.setText("")
         when (field.status) {
             Field.Status.NONE, Field.Status.SET -> inputLayout.error = null
@@ -41,6 +36,11 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
                     Field.Valid.IS_INVALID, Field.Valid.IS_NULL -> inputLayout.error = context.getString(field.errorRequiredStringRes())
                 }
             }
+        }
+        multiAutoCompleteTextView.setTokenizer(MultiAutoCompleteTextView.CommaTokenizer())
+        chipGroup.removeAllViews()
+        chipGenerator.generateChipsForAny(field, field.value).forEach {
+            chipGroup.addView(it)
         }
     }
 
@@ -60,21 +60,6 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
                 }
             }
             multiAutoCompleteTextView.setText("")
-        }
-        multiAutoCompleteTextView.validator = object : AutoCompleteTextView.Validator {
-            override fun isValid(charSequence: CharSequence): Boolean {
-                if (field.autocompleteReferenceList() != null) {
-                    for (o in field.autocompleteReferenceList()!!) {
-                        if (o.toString().contentEquals(charSequence))
-                            return true
-                    }
-                }
-                return false
-            }
-
-            override fun fixText(charSequence: CharSequence): CharSequence {
-                return if (field.value != null) field.value.toString() else ""
-            }
         }
     }
 

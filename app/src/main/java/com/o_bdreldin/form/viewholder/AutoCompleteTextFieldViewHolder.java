@@ -38,10 +38,12 @@ public class AutoCompleteTextFieldViewHolder extends BasicViewHolder<Object> {
         switch (field.getStatus()) {
             case NONE:
                 autoCompleteTextView.setText("");
+                inputLayout.setError(null);
                 break;
             case SET:
                 if (field.getValue() != null)
                     autoCompleteTextView.setText(field.getValue().toString());
+                inputLayout.setError(null);
                 break;
             case VALIDATED:
                 switch (field.getValid()) {
