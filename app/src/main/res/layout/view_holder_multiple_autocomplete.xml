@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:padding="8dp">
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_height="wrap_content">
 
         <MultiAutoCompleteTextView
                 android:id="@+id/auto_complete_text_view"
@@ -20,5 +21,7 @@
     <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/chip_group" />
+            android:id="@+id/chip_group"
+            app:singleLine="false"
+            app:chipSpacing="4dp"/>
 </LinearLayout>

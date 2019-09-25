@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.textfield.TextInputLayout;
 import com.o_bdreldin.form.ViewType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class MultipleAutoCompleteTextField<VAL> extends Field_Impl_I<List<VAL>> 
             , int errorInvalidStringRes, @NonNull List<VAL> list) {
         super(hintStringRes, errorRequiredStringRes, errorInvalidStringRes);
         this.list = list;
-        setValue(Collections.emptyList());
+        setValue(new ArrayList<>());
     }
 
     @Override

@@ -24,6 +24,7 @@ public class _Adapter extends RecyclerView.Adapter<BasicViewHolder<?>> {
 
     private final List<? extends Field<?>> items;
     private boolean showSubmitButton;
+    private int verticalSpacing = -1;
 
     public _Adapter(@NonNull List<? extends Field<?>> items) {
         this.items = items;

@@ -15,13 +15,11 @@ import java.util.*
  * Created by Omar Bdreldin on 9/21/2019
  */
 class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<MutableList<Any>>(view) {
-    private val multiAutoCompleteTextView: MultiAutoCompleteTextView
-    private val chipGroup: ChipGroup
+    private val multiAutoCompleteTextView: MultiAutoCompleteTextView = inputField as MultiAutoCompleteTextView
+    private val chipGroup: ChipGroup = view.findViewById(R.id.chip_group)
     private val chipGenerator: ChipGenerator
 
     init {
-        multiAutoCompleteTextView = inputField as MultiAutoCompleteTextView
-        chipGroup = view.findViewById(R.id.chip_group)
         chipGenerator = ChipGenerator()
     }
 
@@ -34,6 +32,16 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
         chipGenerator.generateChipsForAny(field, field.value).forEach {
             chipGroup.addView(it)
         }
+        multiAutoCompleteTextView.setText("")
+        when (field.status) {
+            Field.Status.NONE, Field.Status.SET -> inputLayout.error = null
+            Field.Status.VALIDATED -> {
+                when (field.valid) {
+                    Field.Valid.IS_VALID -> inputLayout.error = null
+                    Field.Valid.IS_INVALID, Field.Valid.IS_NULL -> inputLayout.error = context.getString(field.errorRequiredStringRes())
+                }
+            }
+        }
     }
 
     override fun _setListeners(field: Field<MutableList<Any>>) {
@@ -45,9 +53,13 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
             )
         )
         multiAutoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
-            multiAutoCompleteTextView.adapter.getItem(position).apply {
-                chipGroup.addView(chipGenerator.generateChipsForAny(field, mutableListOf(this)).first())
+            if (!field.value.contains(multiAutoCompleteTextView.adapter.getItem(position))) {
+                multiAutoCompleteTextView.adapter.getItem(position).apply {
+                    chipGroup.addView(chipGenerator.generateChipsForAny(field, mutableListOf(this)).first())
+                    field.value.add(this)
+                }
             }
+            multiAutoCompleteTextView.setText("")
         }
         multiAutoCompleteTextView.validator = object : AutoCompleteTextView.Validator {
             override fun isValid(charSequence: CharSequence): Boolean {
@@ -67,11 +79,11 @@ class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<Muta
     }
 
     private inner class ChipGenerator {
-        fun generateChipsForAny(field: Field<MutableList<Any>>, vararg objects: Any): List<Chip> {
+        fun generateChipsForAny(field: Field<MutableList<Any>>, objects: MutableList<Any>): List<Chip> {
             return objects.map { any: Any ->
                 val chip = Chip(context)
                 chip.isCloseIconVisible = true
-                chip.setOnCloseIconClickListener { _ ->
+                chip.setOnCloseIconClickListener {
                     field.value.remove(any)
                     chipGroup.removeView(chip)
                 }
