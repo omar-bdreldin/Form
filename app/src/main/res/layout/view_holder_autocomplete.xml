@@ -3,8 +3,7 @@
         android:id="@+id/text_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="wrap_content">
 
     <AutoCompleteTextView
             android:id="@+id/auto_complete_text_view"

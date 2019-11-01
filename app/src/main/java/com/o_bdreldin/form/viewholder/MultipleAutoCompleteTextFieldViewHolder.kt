@@ -1,6 +1,8 @@
 package com.o_bdreldin.form.viewholder
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.MultiAutoCompleteTextView
@@ -15,6 +17,16 @@ import java.util.*
  * Created by Omar Bdreldin on 9/21/2019
  */
 class MultipleAutoCompleteTextFieldViewHolder(view: View) : BasicViewHolder<MutableList<Any>>(view) {
+    companion object {
+        fun create(parent: ViewGroup) : MultipleAutoCompleteTextFieldViewHolder =
+            MultipleAutoCompleteTextFieldViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.view_holder_multiple_autocomplete,
+                    parent,
+                    false
+                )
+            )
+    }
     private val multiAutoCompleteTextView: MultiAutoCompleteTextView = inputField as MultiAutoCompleteTextView
     private val chipGroup: ChipGroup = view.findViewById(R.id.chip_group)
     private val chipGenerator: ChipGenerator

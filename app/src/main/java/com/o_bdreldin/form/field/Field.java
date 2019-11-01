@@ -1,6 +1,7 @@
 package com.o_bdreldin.form.field;
 
 import android.text.InputType;
+import android.text.method.TransformationMethod;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -62,6 +63,10 @@ public interface Field<T> {
     Valid getValid();
 
     void setValid(@NonNull Valid valid);
+
+    default TransformationMethod transformationMethod() {
+        return null;
+    }
 
     enum Status {
         NONE, SET, VALIDATED

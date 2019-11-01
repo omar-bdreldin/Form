@@ -1,6 +1,7 @@
 package com.o_bdreldin.form.viewholder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -23,6 +24,7 @@ public abstract class BasicViewHolder<VAL> extends RecyclerView.ViewHolder {
         context = view.getContext();
         inputField = view.findViewById(inputFieldId());
         inputLayout = view.findViewById(inputLayoutId());
+        inputLayout.setErrorEnabled(true); // TODO: can be customizable
     }
 
     @IdRes protected abstract int inputFieldId();
@@ -30,7 +32,9 @@ public abstract class BasicViewHolder<VAL> extends RecyclerView.ViewHolder {
     @IdRes protected abstract int inputLayoutId();
 
     public void bind(Field<VAL> field) {
+        Log.e(field.toString(), String.valueOf(field.inputType()));
         inputField.setInputType(field.inputType());
+        inputField.setTransformationMethod(field.transformationMethod());
         inputLayout.setHint(context.getString(field.hintStringRes()));
         inputLayout.setEndIconMode(field.endIconMode());
         _bind(field);

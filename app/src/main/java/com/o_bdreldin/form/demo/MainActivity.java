@@ -1,7 +1,7 @@
 package com.o_bdreldin.form.demo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -25,9 +25,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(
+                new GridLayoutManager(this, 2) {{
+                    setSpanSizeLookup(new SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            switch (position) {
+                                case 0:
+                                case 1:
+                                    return 1;
+                                default:
+                                    return 2;
+                            }
+                        }
+                    });
+                }}
+        );
         Form form = FormFactory.with(recyclerView)
-                .showSubmitButton(false)
+                .showSubmitButton(Form::validate)
                 .setFieldList(Arrays.asList(
                         new PlainTextField(R.string.hint_name, R.string.error_name_required),
                         new EmailTextField(),

@@ -2,7 +2,9 @@ package com.o_bdreldin.form.viewholder;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
@@ -14,6 +16,15 @@ import com.o_bdreldin.form.field.Field;
  * Created by Omar Bdreldin on 9/2/2019
  */
 public class TextFieldViewHolder extends BasicViewHolder<String> implements TextWatcher {
+
+    public static TextFieldViewHolder create(ViewGroup parent) {
+        return new TextFieldViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_text,
+                        parent,
+                        false
+                )
+        );
+    }
 
     protected boolean setTextCalled = false;
     protected Consumer<String> stringConsumer;

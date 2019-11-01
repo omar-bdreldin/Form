@@ -1,6 +1,8 @@
 package com.o_bdreldin.form.viewholder;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -13,6 +15,15 @@ import com.o_bdreldin.form.field.Field;
  * Created by Omar Bdreldin on 9/17/2019
  */
 public class AutoCompleteTextFieldViewHolder extends BasicViewHolder<Object> {
+
+    public static AutoCompleteTextFieldViewHolder create(ViewGroup parent) {
+        return new AutoCompleteTextFieldViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_autocomplete,
+                        parent,
+                        false
+                )
+        );
+    }
 
     protected AutoCompleteTextView autoCompleteTextView;
 

@@ -7,4 +7,5 @@ public interface ViewType {
     int VIEW_TYPE_TEXT = 0;
     int VIEW_TYPE_AUTO_COMPLETE = 1;
     int VIEW_TYPE_MULTIPLE_AUTO_COMPLETE = 2;
+    int VIEW_TYPE_SUBMIT_BUTTON = 3;
 }

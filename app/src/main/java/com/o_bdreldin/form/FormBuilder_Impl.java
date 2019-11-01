@@ -5,10 +5,9 @@ import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.o_bdreldin.ViewHolderLookup;
 import com.o_bdreldin.form.adapter._Adapter;
 import com.o_bdreldin.form.field.Field;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -23,11 +22,12 @@ public class FormBuilder_Impl implements FormBuilder {
     @StringRes
     private int submitButtonText = R.string.submit;
     @NonNull
-    private Boolean showSubmitButton = true;
+    private Boolean showSubmitButton = false;
     @NonNull
     private OnFormSubmitListener onFormSubmitListener;
     private RecyclerView.Adapter<?> adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ViewHolderLookup viewHolderLookup;
 
     FormBuilder_Impl(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
@@ -36,9 +36,12 @@ public class FormBuilder_Impl implements FormBuilder {
 
     @Override
     public Form build() {
-        // TODO: validate nulls
-        recyclerView.setAdapter(adapter = new _Adapter(fields, showSubmitButton));
-        return new Form_Impl(this);
+        Form form = new Form_Impl(this);
+        _Adapter _adapter = new _Adapter(fields, showSubmitButton);
+        _adapter.setOnFormSubmitListener(() -> onFormSubmitListener.onFormSubmit(form));
+        _adapter.setViewHolderLookup(viewHolderLookup);
+        recyclerView.setAdapter(adapter = _adapter);
+        return form;
     }
 
     @Override
@@ -56,22 +59,21 @@ public class FormBuilder_Impl implements FormBuilder {
     }
 
     @Override
-    public FormBuilder showSubmitButton(@NotNull Boolean show) {
-        showSubmitButton = show;
-        return this;
-    }
-
-    @Override
     public FormBuilder submitButtonText(int text) {
         this.submitButtonText = text;
         return this;
     }
 
     @Override
-    public FormBuilder setOnFormSubmitListener(OnFormSubmitListener onFormSubmitListener) {
-        if (onFormSubmitListener == null)
-            throw new IllegalArgumentException("OnFormSubmitListener can't be null");
-        else this.onFormSubmitListener = onFormSubmitListener;
+    public FormBuilder showSubmitButton(@NonNull OnFormSubmitListener onFormSubmitListener) {
+        this.showSubmitButton = true;
+        this.onFormSubmitListener = onFormSubmitListener;
+        return this;
+    }
+
+    @Override
+    public FormBuilder setViewHolderLookup(@NonNull ViewHolderLookup viewHolderLookup) {
+        this.viewHolderLookup = viewHolderLookup;
         return this;
     }
 
