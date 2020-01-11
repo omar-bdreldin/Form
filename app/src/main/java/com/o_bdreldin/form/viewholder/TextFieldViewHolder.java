@@ -51,8 +51,9 @@ public class TextFieldViewHolder extends BasicViewHolder<String> implements Text
                 inputLayout.setError(null);
                 break;
             case SET:
-                if (field.getValue() != null)
+                if (field.getValue() != null) {
                     setTextAndWithoutTriggeringOnTextChanged(field.getValue());
+                }
                 inputLayout.setError(null);
                 break;
             case VALIDATED:

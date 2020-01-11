@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.o_bdreldin.form.DoNothingTransformationMethod;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public interface Field<T> {
     void setValid(@NonNull Valid valid);
 
     default TransformationMethod transformationMethod() {
-        return null;
+        return new DoNothingTransformationMethod();
     }
 
     enum Status {
